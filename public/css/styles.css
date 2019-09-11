@@ -12,6 +12,7 @@ ul {
 	list-style-type: none;
 	padding: 0;
 	width: 30%;
+	box-shadow: 10px 10px 5px grey;
 }
 li {
 	margin: 0;
@@ -30,6 +31,7 @@ li {
 .post-details {
 	width: 60%;
 }
+
 .thumbnail {
 	position: relative;
 	left: 0;
@@ -38,13 +40,20 @@ li {
 }
 .post-preview {
 	position: relative;
-	top: 2%;
+	top: 15px;
 	border: 1px solid black;
 	margin: 0 10px;
 	overflow: auto;
 	width: 70%;
-	height: 70%;
+	height: 760px;
 	box-shadow: 10px 10px 5px grey;
+}
+
+.close-post{
+	position: absolute;
+	font-size: 30px;
+	top: 24px;
+	right: 22px;
 }
 
 .post-img {
@@ -71,6 +80,12 @@ a.readed {
 
 .gallery-container {
 	width: 20%;
+	overflow: auto;
+	border: 1px solid black;
+	box-shadow: 10px 10px 5px grey;
+	max-height: 760px;
+	position: relative;
+	top: 15px;
 }
 .images-container {
 	display: flex;
@@ -80,4 +95,46 @@ a.readed {
 .images-container img {
 	padding: 10px;
 	width: 50%;
+}
+div.polaroid {
+  width: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+div.p-container {
+  padding: 10px;
+}
+
+	.current-post {
+		border: 2px solid red;
+	}
+@media (max-width: 767px) {
+	h1 {
+		font-size: 18px;
+	}
+	.container {
+		flex-flow: column;
+	}
+	.post-container{
+		flex-flow: column;
+		width: 100%;
+	}
+	ul {
+		list-style-type: none;
+		padding: 0;
+		width: 100%;
+	}
+	.post-preview {
+		width: 100%;
+		position: relative;
+		margin: 0 auto;
+		height: 80%;
+		box-shadow: 10px 10px 5px grey;
+	}
+	.gallery-container {
+		width: 100%;
+		margin-top: 10px;
+	}
 }

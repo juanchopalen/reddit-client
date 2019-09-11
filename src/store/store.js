@@ -9,6 +9,7 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
 	state: {
 		posts: [],
+		post: null,
 		gallery: [],
 	},
 	actions: {
@@ -28,14 +29,14 @@ export const store = new Vuex.Store({
 				})
 			}
 	    },
+	    setPost(context, payload){
+			context.commit('setPost', payload)
+	    },
 	    removePost(context, payload) {
 			context.commit('removePost', payload)
 	    },
 	    removeAll(context) {
 			context.commit('removeAll')
-	    },
-	    readPost(context, payload){
-			context.commit('readPost', payload)
 	    },
 	    saveImage(context, payload){
 			context.commit('saveImage', payload)
@@ -45,6 +46,12 @@ export const store = new Vuex.Store({
 		getPosts(state, payload) {
 			state.posts = payload.children
 		},
+		setPost(state, payload){
+			state.post = payload
+			if (payload) {
+				state.post.data.clicked = true
+			}
+		},
 		removePost(state, payload){
 			let index = state.posts.findIndex(post => post.data.id == payload.data.id)
 			state.posts.splice(index, 1);
@@ -52,16 +59,13 @@ export const store = new Vuex.Store({
 		removeAll(state){
 			state.posts = [];
 		},
-		readPost(state, payload){
-			let index = state.posts.findIndex(post => post.data.id == payload.data.id)
-			state.posts[index].data.clicked = true
-		},
 		saveImage(state, payload) {
 			state.gallery.push(payload)
 		},
 	},
 	getters: {
 		getPosts: state => state.posts,
+		getPost: state => state.post,
 		getGallery: state => state.gallery
 	},
 	plugins: [createPersistedState()]

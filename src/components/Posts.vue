@@ -13,8 +13,8 @@
 		</div>
 		<div v-else class="post-container">
 	        <ul>
-	          <li v-for="(post, index) in posts" :key="index" v-if="index > count * page - count && index < count * page">
-				<a href="##" rel="noopener" @click="setPost(post)" :class="post.data.clicked ? 'readed' : ''">
+	          <li v-for="(post, index) in posts" :key="index" v-if="index > count * page - count && index < count * page" :class="isCurrent(post) ? 'current-post' : ''">
+				<a href="##" rel="noopener" @click="setPost(post)" :class="post.data.clicked ? 'readed' : ''" >
 					<div class="post-image">
 						<img class="thumbnail" :src="getThumbnail(post)">
 					</div>
@@ -35,7 +35,6 @@
 				</div>
 	        </li>
 	        </ul>
-
 	        <div class="post-preview" v-if="post">
 	            <h1>{{ post.data.author }}</h1>
 	            <img class="post-img" :src="getFullImage(post)">
@@ -43,13 +42,19 @@
 	                {{ post.data.title }}
 	            </p>
 	            <button class="btn-image" @click="saveImage(post)" v-if="getFullImage(post) != '/img/empty.png'"><i class="fas fa-trash"></i> Save to gallery</button>
+	            <a href="#" class="close-post" @click="setPost(null)"><i class="fas fa-times"></i></a>
 	        </div>
 		</div>
 
         <div class="gallery-container">
         	<h1>Gallery</h1>
         	<div class="images-container">
-        		<img :src="image" v-for="(image, index) in gallery"/>
+				<div class="polaroid" v-for="(image, index) in gallery">
+					<img :src="image.url"/>
+					<div class="p-container">
+						<p>{{ image.title }}</p>
+					</div>
+			</div>
         	</div>
         </div>
     </div>
@@ -64,7 +69,6 @@ export default {
   },
   data(){
     return {
-        post: null,
         page: 1,
         count: 5,
     }
@@ -74,8 +78,7 @@ export default {
 	},
   methods: {
 	setPost(post) {
-		this.post = post
-		this.$store.dispatch('readPost', post)
+		this.$store.dispatch('setPost', post)
 	},
 	getThumbnail(post) {
 		return post.data.thumbnail ? post.data.thumbnail : '/img/empty.png'
@@ -105,12 +108,22 @@ export default {
 		this.page = page
 	},
 	saveImage(post) {
-		this.$store.dispatch('saveImage', this.getFullImage(post))
-	}
+		let img = {
+			url: this.getFullImage(post),
+			title: this.post.data.name,
+		}
+		this.$store.dispatch('saveImage', img)
+	},
+	isCurrent(post) {
+		return this.post === post
+	},
   },
   computed: {
     posts() {
         return this.$store.getters.getPosts
+    },
+    post() {
+        return this.$store.getters.getPost
     },
     gallery() {
         return this.$store.getters.getGallery
@@ -119,7 +132,7 @@ export default {
     	let count = this.posts.length / this.count
     	let integerCount = count >> 0
     	return count > integerCount ? integerCount + 1 : count
-    }
+    },
   }
 }
 </script>
