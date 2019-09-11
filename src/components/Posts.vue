@@ -5,7 +5,7 @@
       This test retrieve the latests top posts from <a href="https://www.reddit.com/top">Reddit</a>
     </p>
     <h3>Posts list</h3>
-    <button class="btn-delete" @click="removeAll">Remove All</button>
+    <button class="btn-delete" @click="removeAll"><i class="fas fa-trash"></i> Remove All</button>
 
     <div class="container">
 		<div v-if="posts.length == 0" class="container">
@@ -15,13 +15,17 @@
 	        <ul>
 	          <li v-for="(post, index) in posts" :key="index" v-if="index > count * page - count && index < count * page">
 				<a href="##" rel="noopener" @click="setPost(post)" :class="post.data.clicked ? 'readed' : ''">
-					<p>Date: {{ getDate(post) }}</p>
-					<img class="thumbnail" :src="getThumbnail(post)">
-					<p>Author: {{ post.data.author  }}</p>
-					<p> Name: {{ post.data.name  }}</p>
-					<p> #Comments: {{ post.data.num_comments  }}</p>
+					<div class="post-image">
+						<img class="thumbnail" :src="getThumbnail(post)">
+					</div>
+					<div class="post-details">
+						<p>Date: {{ getDate(post) }}</p>
+						<p>Author: {{ post.data.author  }}</p>
+						<p> Name: {{ post.data.name  }}</p>
+						<p> #Comments: {{ post.data.num_comments  }}</p>
+						<button class="btn-delete" @click="removePost(post)"><i class="fas fa-trash"></i> Remove</button>
+					</div>
 				</a>
-				<button class="btn-delete" @click="removePost(post)">Remove</button>
 	        </li>
 	        <li>
 	        	<div class="pagination">
@@ -38,7 +42,7 @@
 	            <p>
 	                {{ post.data.title }}
 	            </p>
-	            <button class="btn-image" @click="saveImage(post)" v-if="getFullImage(post) != '/img/empty.png'">Save to gallery</button>
+	            <button class="btn-image" @click="saveImage(post)" v-if="getFullImage(post) != '/img/empty.png'"><i class="fas fa-trash"></i> Save to gallery</button>
 	        </div>
 		</div>
 
@@ -67,14 +71,8 @@ export default {
   },
 	created(){
 		this.$store.dispatch('getPosts')
-		.then(() => {
-			this.setFirstPost()
-		})
 	},
   methods: {
-  	setFirstPost(){
-  		this.setPost(this.posts[0])
-  	},
 	setPost(post) {
 		this.post = post
 		this.$store.dispatch('readPost', post)
@@ -98,7 +96,7 @@ export default {
 	},
 	removePost(post){
 		this.$store.dispatch('removePost', post)
-		this.setFirstPost()
+		this.post = null
 	},
 	removeAll(){
 		this.$store.dispatch('removeAll')
@@ -125,78 +123,3 @@ export default {
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-	margin: 40px 0 0;
-}
-.container {
-    display: flex;
-}
-.post-container{
-	display: flex;
-	width: 80%;
-}
-ul {
-	list-style-type: none;
-	padding: 0;
-	width: 30%;
-}
-li {
-	margin: 0;
-	padding: 20px 0;
-}
-.container a {
-	background-color: #ccc;
-	display: flex;
-	flex-flow: column;
-	color: #42b983;
-	text-align: left;
-	text-decoration: none;
-}
-.thumbnail {
-	position: relative;
-	left: 0;
-	width: 20%;
-	height: auto;
-}
-.post-preview {
-	width: 70%;
-}
-
-.post-img {
-	width: 50%;
-}
-
-.pagination {
-  display: inline-block;
-}
-
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-}
-a.active {
-	background-color: #42b983;
-}
-a.readed {
-	background-color: #42b983;
-	color: #ccc;
-}
-
-.gallery-container {
-	width: 20%;
-}
-.images-container {
-	display: flex;
-	flex-flow: column;
-	align-items: center;
-}
-.images-container img {
-	padding: 10px;
-	width: 50%;
-}
-</style>

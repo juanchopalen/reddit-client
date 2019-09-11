@@ -13,7 +13,7 @@ export const store = new Vuex.Store({
 	},
 	actions: {
 	    getPosts(context, params){
-			if (context.state.posts == []) {
+			if (context.state.posts.length  == 0) {
 				return new Promise((resolve, reject)=> {
 					axios.get('http://localhost:8080/top.json')
 						.then(response => {
@@ -43,7 +43,6 @@ export const store = new Vuex.Store({
 	},
 	mutations: {
 		getPosts(state, payload) {
-
 			state.posts = payload.children
 		},
 		removePost(state, payload){
