@@ -11,14 +11,18 @@ export const store = new Vuex.Store({
 	actions: {
 	    getPosts(context, params){
 	        context.state.loading = true
-	        axios.get('http://localhost:8080/top.json')
-	            .then(response => {
-	                context.commit('getPosts', response.data.data)
-	                context.state.loading = false
-	            })
-	            .catch(error => {
-	                console.log(error)
-	            })
+			return new Promise((resolve, reject)=> {
+				axios.get('http://localhost:8080/top.json')
+					.then(response => {
+						context.commit('getPosts', response.data.data)
+						context.state.loading = false
+						resolve()
+					})
+					.catch(error => {
+						console.log(error)
+						reject()
+				})
+			})
 	    },
 	},
 	mutations: {
@@ -28,6 +32,6 @@ export const store = new Vuex.Store({
 		}
 	},
 	getters: {
-		posts: state => state.posts
+		getPosts: state => state.posts
 	}
 })
