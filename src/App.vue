@@ -6,11 +6,13 @@
 
 <script>
 import Posts from './components/Posts.vue'
+import Post from './components/Post.vue'
 
 export default {
   name: 'app',
   components: {
-    Posts
+    Posts,
+    Post,
   }
 }
 </script>
