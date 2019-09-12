@@ -18,7 +18,7 @@ export const store = new Vuex.Store({
 		getPosts(context){
 			if (context.state.posts.length  == 0) {
 				return new Promise((resolve, reject)=> {
-					axios.get('http://localhost:8080/top.json')
+					axios.get('/top.json')
 						.then(response => {
 							context.commit('getPosts', response.data.data)
 							context.state.loading = false

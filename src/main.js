@@ -4,7 +4,6 @@ import { store } from './store/store'
 
 Vue.config.productionTip = false
 
-Vue.use(require('vue-moment'))
 
 window.moment = require('moment');
 

@@ -1,29 +1,27 @@
-# reddit-client
+# Front-end Test
+This test was coded to show my abilities like a Front-end Developer
 
-## Project setup
-```
-npm install
-```
+## Description
+Project created with vue-cli to read data from a JSON file, and show posts in a Simple Page Application.
+I used vuex to mantain the state of application, and I installed a Persist data plugin
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Steps
+* Create Environment
+* Read data from JSON file
+* show posts list
+* show single posts
+* Add pagination
+* Add Persist Data Plugin
+* Create methods for:
+	- Get Posts
+	- Set Post
+	- Remove Post
+	- Remove all Posts
+	- Save Image to gallery
+	- Set clicked true when Post is showed
+	- Get Thumbmnail from Post
+* Refactor code to separate all functionalities in short components
+* Apply CSS styles
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Created by [Juan Palencia](http://klaustro.net)
