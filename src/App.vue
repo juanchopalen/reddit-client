@@ -1,18 +1,22 @@
 <template>
   <div id="app">
-    <posts msg="Welcome to VueJS Front-end Test"/>
+    <index msg="Welcome to VueJS Front-end Test"/>
   </div>
 </template>
 
 <script>
-import Posts from './components/Posts.vue'
+import Index from './components/Index.vue'
+import List from './components/List.vue'
 import Post from './components/Post.vue'
+import Gallery from './components/Gallery.vue'
 
 export default {
   name: 'app',
   components: {
-    Posts,
+    Index,
+    List,
     Post,
+    Gallery,
   }
 }
 </script>

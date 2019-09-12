@@ -5,15 +5,30 @@
 		<p>
 			{{ post.data.title }}
 		</p>
-		<button class="btn-image" @click="saveImage(post)" v-if="getFullImage(post) != '/img/empty.png'"><i class="fas fa-trash"></i> Save to gallery</button>
-		<a href="#" class="close-post" @click="setPost(null)"><i class="fas fa-times"></i></a>
+
+		<i class="fas fa-save" @click="saveImage(post)" v-if="getFullImage(post) != '/img/empty.png'" title="Save to gallery"></i>
+
+		<a href="#" class="close-post" @click="closePost"><i @click="closePost" class="fas fa-times"></i></a>
 	</div>
 </template>
 
 <script>
 	export default {
 		props: ['post'],
+
 		methods: {
+			closePost(){
+				this.$store.dispatch('setPost', null)
+			},
+
+			saveImage(post) {
+				let img = {
+					url: this.getFullImage(post),
+					title: this.post.data.name,
+				}
+				this.$store.dispatch('saveImage', img)
+			},
+
 			getFullImage(post) {
 				return this.isImage(post.data.url) ? post.data.url : this.getThumbnail(post)
 			},
