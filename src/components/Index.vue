@@ -8,12 +8,10 @@
 
     <div class="container">
 		<div v-if="posts.length > 0" class="post-container">
-			<list
-				:posts="posts"
-			></list>
-	        <post
-	        	:post="post"
-	        ></post>
+			<list></list>
+			<post
+				:post="post"
+			></post>
 		</div>
 
 		<gallery

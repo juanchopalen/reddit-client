@@ -6,17 +6,11 @@
 
 <script>
 import Index from './components/Index.vue'
-import List from './components/List.vue'
-import Post from './components/Post.vue'
-import Gallery from './components/Gallery.vue'
 
 export default {
   name: 'app',
   components: {
-    Index,
-    List,
-    Post,
-    Gallery,
+    Index
   }
 }
 </script>

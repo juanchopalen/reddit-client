@@ -4,7 +4,7 @@
 		<h1>Gallery</h1>
 
 		<div class="images-container" :class="posts.length == 0 ? 'full' : ''">
-			<div class="polaroid" v-for="(image, index) in gallery">
+			<div class="polaroid" v-for="(image, index) in gallery" :key="index">
 				<img :src="image.url"/>
 				<div class="p-container">
 					<p>{{ image.title }}</p>

@@ -15,42 +15,41 @@ export const store = new Vuex.Store({
 		count: 5,
 	},
 	actions: {
-	    getPosts(context, params){
+		getPosts(context){
 			if (context.state.posts.length  == 0) {
 				return new Promise((resolve, reject)=> {
 					axios.get('http://localhost:8080/top.json')
 						.then(response => {
 							context.commit('getPosts', response.data.data)
 							context.state.loading = false
-							resolve()
+							resolve(response)
 						})
 						.catch(error => {
-							console.log(error)
-							reject()
+							reject(error)
 					})
 				})
 			}
-	    },
+		},
 
-	    setPost(context, payload){
+		setPost(context, payload){
 			context.commit('setPost', payload)
-	    },
+		},
 
-	    removePost(context, payload) {
+		removePost(context, payload) {
 			context.commit('removePost', payload)
-	    },
+		},
 
-	    removeAll(context) {
+		removeAll(context) {
 			context.commit('removeAll')
-	    },
+		},
 
-	    saveImage(context, payload){
+		saveImage(context, payload){
 			context.commit('saveImage', payload)
-	    },
+		},
 
-	    setPage(context, payload){
+		setPage(context, payload){
 			context.commit('setPage', payload)
-	    },
+		},
 	},
 	mutations: {
 		getPosts(state, payload) {

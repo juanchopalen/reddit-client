@@ -1,7 +1,7 @@
 <template>
 	<div class="pagination">
 		<a href="##" @click="setPage(page-1)" v-if="page > 1 && pagesCount > 0">&laquo;</a>
-		<a href="##" v-for="i in pagesCount" @click="setPage(i)" :class="page == i ? 'active' : ''">{{ i }}</a>
+		<a href="##" v-for="i in pagesCount" @click="setPage(i)" :class="page == i ? 'active' : ''" :key="i">{{ i }}</a>
 		<a href="##" @click="setPage(page+1)" v-if="page < pagesCount">&raquo;</a>
 	</div>
 </template>
